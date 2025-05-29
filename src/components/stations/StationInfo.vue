@@ -36,14 +36,6 @@ const statusText = computed(() => {
       return props.station.status;
   }
 });
-
-const handleEdit = () => {
-  emit('edit', props.station._id);
-};
-
-const handleClose = () => {
-  emit('close');
-};
 </script>
 
 <template>
