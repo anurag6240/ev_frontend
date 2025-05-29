@@ -142,8 +142,8 @@ const getCurrentLocation = () => {
 </script>
 
 <template>
-  <div class="relative w-full h-full">
-    <div ref="mapContainer" class="w-full h-full"></div>
+  <div class="relative w-full h-[60vh]">
+    <div ref="mapContainer" class="w-full h-full rounded-lg"></div>
     
     <!-- Current Location Button -->
     <button
@@ -174,6 +174,7 @@ const getCurrentLocation = () => {
 .leaflet-container {
   width: 100%;
   height: 100%;
+  border-radius: 0.5rem;
 }
 
 .current-location-marker {

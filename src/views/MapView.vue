@@ -277,7 +277,7 @@ const handleCloseInfo = () => {
 
     <div class="relative parent-map-container">
        <!-- Map container - Always in DOM -->
-      <div ref="mapContainer" id="map-container" class="w-full h-[600px] rounded-lg shadow-md bg-gray-100"></div>
+      <div ref="mapContainer" id="map-container" class="w-full h-[80vh] rounded-lg shadow-md bg-gray-100"></div>
 
       <!-- Loading/Empty State Overlay -->
       <div 
@@ -317,26 +317,23 @@ const handleCloseInfo = () => {
 /* Parent container for relative positioning */
 .parent-map-container {
   position: relative;
-  width: 100%; /* Ensure it takes full width */
-  min-height: 600px; /* Ensure it has at least the map height */
-  /* background-color: #f0f0f0; /* Optional: helps visualize the container area */
+  width: 100%;
+  min-height: 80vh; /* Match the height of the map container */
 }
 
 /* Ensure Leaflet container takes up space and is positioned correctly */
 .leaflet-container {
-  width: 100% !important; /* Use !important to override potential conflicting styles */
-  height: 100% !important; /* Use !important */
-  z-index: 1; /* Ensure it's below overlays */
-  /* position: relative; /* Leaflet usually sets this, ensure it's not overridden */
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1;
 }
 
 /* Specific height for the map container element */
 #map-container {
   width: 100%;
-  height: 600px; /* Fixed height */
-  min-height: 600px; /* Ensure minimum height */
-  display: block !important; /* Ensure it's a block element */
-  /* background-color: #e0e0e0; /* Optional: helps visualize the map div area */
+  height: 80vh; /* Viewport height */
+  min-height: 80vh;
+  display: block !important;
 }
 
 /* Custom marker styles */
