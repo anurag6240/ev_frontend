@@ -50,30 +50,36 @@ const initMap = () => {
   map.value = L.map(mapContainer.value).setView([props.initialLocation.lat, props.initialLocation.lng], 13);
   
   // Add tile layer (OpenStreetMap)
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 19
-  }).addTo(map.value);
+  });
+  
+  if (map.value) {
+    tileLayer.addTo(map.value);
+  }
   
   // Add initial marker
-  marker.value = L.marker([props.initialLocation.lat, props.initialLocation.lng], {
-    draggable: true
-  }).addTo(map.value);
-  
-  // Add click handler to map
-  map.value.on('click', (e: L.LeafletMouseEvent) => {
-    const { lat, lng } = e.latlng;
-    marker.value?.setLatLng([lat, lng]);
-    emit('location-selected', { lat, lng });
-  });
-  
-  // Add drag end handler to marker
-  marker.value.on('dragend', () => {
-    const position = marker.value?.getLatLng();
-    if (position) {
-      emit('location-selected', { lat: position.lat, lng: position.lng });
-    }
-  });
+  if (map.value) {
+    marker.value = L.marker([props.initialLocation.lat, props.initialLocation.lng], {
+      draggable: true
+    }).addTo(map.value);
+    
+    // Add click handler to map
+    map.value.on('click', (e: L.LeafletMouseEvent) => {
+      const { lat, lng } = e.latlng;
+      marker.value?.setLatLng([lat, lng]);
+      emit('location-selected', { lat, lng });
+    });
+    
+    // Add drag end handler to marker
+    marker.value.on('dragend', () => {
+      const position = marker.value?.getLatLng();
+      if (position) {
+        emit('location-selected', { lat: position.lat, lng: position.lng });
+      }
+    });
+  }
 };
 
 const getCurrentLocation = () => {

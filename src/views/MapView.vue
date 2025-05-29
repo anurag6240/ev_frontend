@@ -6,14 +6,6 @@ import StationInfo from '../components/stations/StationInfo.vue';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Fix for default marker icon issue with bundlers - keep this for default markers elsewhere if needed, but we use custom ones here
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'leaflet/dist/images/marker-icon-2x.png',
-  iconUrl: 'leaflet/dist/images/marker-icon.png',
-  shadowUrl: 'leaflet/dist/images/marker-shadow.png',
-});
-
 const stationsStore = useStationsStore();
 const router = useRouter();
 const route = useRoute();
@@ -72,7 +64,7 @@ onMounted(async () => {
     } else if (stationsStore.stations.length > 0) {
        // If no specific station ID, fit bounds to all stations if any exist
        const points = stationsStore.stations.map(s => [s.location.lat, s.location.lng]);
-       map.value?.fitBounds(points, { padding: [50, 50] });
+       map.value?.fitBounds(points as L.LatLngBoundsLiteral, { padding: [50, 50] });
        console.log('No station ID in route, fitting bounds to all stations');
     }
 
@@ -168,9 +160,7 @@ const initMap = async () => {
     map.value = L.map(mapContainer.value, {
       center: [40.7128, -74.006],
       zoom: 10,
-      zoomControl: true,
-      // Disable animation for initial view to avoid potential timing issues
-      animate: false
+      zoomControl: true
     });
     
     console.log('Adding tile layer...');
