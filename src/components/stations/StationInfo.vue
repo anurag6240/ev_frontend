@@ -6,9 +6,9 @@ const props = defineProps<{
   station: ChargingStation;
 }>();
 
-defineEmits<{
-  (e: 'edit', id: string): void;
-  (e: 'close'): void;
+const emit = defineEmits<{
+  'edit': [id: string];
+  'close': [];
 }>();
 
 const statusColor = computed(() => {
@@ -45,7 +45,7 @@ const statusText = computed(() => {
       <div class="flex justify-between items-start mb-4">
         <h3 class="text-lg font-semibold text-gray-800 truncate">{{ station.name }}</h3>
         <button 
-          @click="$emit('close')" 
+          @click="emit('close')" 
           class="text-gray-400 hover:text-gray-600 focus:outline-none"
           aria-label="Close"
         >
@@ -90,7 +90,7 @@ const statusText = computed(() => {
       <!-- Action Button -->
       <div class="pt-3 border-t border-gray-100">
         <button 
-          @click="$emit('edit', station._id)"
+          @click="emit('edit', station._id)"
           class="w-full py-2.5 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
           Edit Station
