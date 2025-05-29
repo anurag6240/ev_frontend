@@ -165,18 +165,22 @@ const initMap = async () => {
     
     console.log('Adding tile layer...');
     // Add tile layer (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 19
-    }).addTo(map.value);
+    });
+    
+    if (map.value) {
+      tileLayer.addTo(map.value as L.Map);
+    }
 
     // Wait for the map to be ready - ensure whenReady is used
     await new Promise<void>(resolve => {
       map.value?.whenReady(() => {
         console.log('Map is ready');
         // Invalidate size immediately when ready, before any data operations
-         map.value?.invalidateSize();
-         console.log('Map size invalidated immediately when ready');
+        map.value?.invalidateSize();
+        console.log('Map size invalidated immediately when ready');
         resolve();
       });
     });

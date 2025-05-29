@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStationsStore, type ChargingStation } from '../../stores/stations';
+import { useStationsStore } from '../../stores/stations';
 import MapSelector from '../../components/map/MapSelector.vue';
 
 const route = useRoute();
