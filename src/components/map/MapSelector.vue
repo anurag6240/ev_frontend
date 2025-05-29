@@ -47,7 +47,7 @@ const initMap = () => {
   if (!mapContainer.value) return;
 
   // Create map instance with explicit type
-  const mapInstance = L.map(mapContainer.value).setView([props.initialLocation.lat, props.initialLocation.lng], 13);
+  const mapInstance = L.map(mapContainer.value).setView([props.initialLocation.lat, props.initialLocation.lng], 13) as L.Map;
   map.value = mapInstance;
   
   // Add tile layer (OpenStreetMap)

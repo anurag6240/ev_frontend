@@ -50,8 +50,8 @@ export const useStationsStore = defineStore('stations', () => {
       const response = await api.get(`/stations?${params.toString()}`);
       stations.value = response.data.data;
       return response.data.data;
-    } catch (err: Error) {
-      const message = err.message || 'Failed to fetch stations';
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to fetch stations';
       error.value = message;
       toast.error(message);
       return [];
@@ -69,8 +69,8 @@ export const useStationsStore = defineStore('stations', () => {
       const response = await api.get(`/stations/${id}`);
       currentStation.value = response.data.data;
       return response.data.data;
-    } catch (err: Error) {
-      const message = err.message || 'Failed to fetch station details';
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to fetch station details';
       error.value = message;
       toast.error(message);
       return null;
@@ -88,8 +88,8 @@ export const useStationsStore = defineStore('stations', () => {
       const response = await api.post('/stations', stationData);
       toast.success('Charging station created successfully');
       return response.data.data;
-    } catch (err: Error) {
-      const message = err.message || 'Failed to create station';
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to create station';
       error.value = message;
       toast.error(message);
       return null;
@@ -107,8 +107,8 @@ export const useStationsStore = defineStore('stations', () => {
       const response = await api.put(`/stations/${id}`, stationData);
       toast.success('Charging station updated successfully');
       return response.data.data;
-    } catch (err: Error) {
-      const message = err.message || 'Failed to update station';
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to update station';
       error.value = message;
       toast.error(message);
       return null;
@@ -127,8 +127,8 @@ export const useStationsStore = defineStore('stations', () => {
       stations.value = stations.value.filter(station => station._id !== id);
       toast.success('Charging station deleted successfully');
       return true;
-    } catch (err: Error) {
-      const message = err.message || 'Failed to delete station';
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to delete station';
       error.value = message;
       toast.error(message);
       return false;
