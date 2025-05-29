@@ -99,7 +99,7 @@ watch([() => stationsStore.stations, () => route.params.stationId], async ([newS
     if (map.value && newStations !== oldStations) { // Simple check, deep watch is active
         console.log('Stations data changed, updating markers.');
         // Clear existing markers (if any)
-        map.value.eachLayer((layer: any) => {
+        map.value.eachLayer((layer: L.Layer) => {
             if (layer instanceof L.Marker) {
                 map.value?.removeLayer(layer);
             }
@@ -156,12 +156,13 @@ const initMap = async () => {
 
   try {
     console.log('Creating map instance...');
-    // Create map instance
-    map.value = L.map(mapContainer.value, {
+    // Create map instance with explicit type
+    const mapInstance = L.map(mapContainer.value, {
       center: [40.7128, -74.006],
       zoom: 10,
       zoomControl: true
     });
+    map.value = mapInstance;
     
     console.log('Adding tile layer...');
     // Add tile layer (OpenStreetMap)
@@ -170,16 +171,13 @@ const initMap = async () => {
       maxZoom: 19
     });
     
-    if (map.value) {
-      tileLayer.addTo(map.value as L.Map);
-    }
+    tileLayer.addTo(mapInstance);
 
-    // Wait for the map to be ready - ensure whenReady is used
+    // Wait for the map to be ready
     await new Promise<void>(resolve => {
-      map.value?.whenReady(() => {
+      mapInstance.whenReady(() => {
         console.log('Map is ready');
-        // Invalidate size immediately when ready, before any data operations
-        map.value?.invalidateSize();
+        mapInstance.invalidateSize();
         console.log('Map size invalidated immediately when ready');
         resolve();
       });

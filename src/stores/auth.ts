@@ -47,8 +47,8 @@ export const useAuthStore = defineStore('auth', () => {
       
       toast.success('Registration successful!');
       return true;
-    } catch (err: any) {
-      const message = err.response?.data?.message || 'Registration failed';
+    } catch (err: Error) {
+      const message = err.message || 'Registration failed';
       error.value = message;
       toast.error(message);
       return false;
@@ -72,8 +72,8 @@ export const useAuthStore = defineStore('auth', () => {
       
       toast.success('Login successful!');
       return true;
-    } catch (err: any) {
-      const message = err.response?.data?.message || 'Login failed';
+    } catch (err: Error) {
+      const message = err.message || 'Login failed';
       error.value = message;
       toast.error(message);
       return false;

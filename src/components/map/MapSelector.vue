@@ -46,8 +46,9 @@ watch(() => props.initialLocation, (newLocation) => {
 const initMap = () => {
   if (!mapContainer.value) return;
 
-  // Create map instance
-  map.value = L.map(mapContainer.value).setView([props.initialLocation.lat, props.initialLocation.lng], 13);
+  // Create map instance with explicit type
+  const mapInstance = L.map(mapContainer.value).setView([props.initialLocation.lat, props.initialLocation.lng], 13);
+  map.value = mapInstance;
   
   // Add tile layer (OpenStreetMap)
   const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -55,31 +56,27 @@ const initMap = () => {
     maxZoom: 19
   });
   
-  if (map.value) {
-    tileLayer.addTo(map.value);
-  }
+  tileLayer.addTo(mapInstance);
   
   // Add initial marker
-  if (map.value) {
-    marker.value = L.marker([props.initialLocation.lat, props.initialLocation.lng], {
-      draggable: true
-    }).addTo(map.value);
-    
-    // Add click handler to map
-    map.value.on('click', (e: L.LeafletMouseEvent) => {
-      const { lat, lng } = e.latlng;
-      marker.value?.setLatLng([lat, lng]);
-      emit('location-selected', { lat, lng });
-    });
-    
-    // Add drag end handler to marker
-    marker.value.on('dragend', () => {
-      const position = marker.value?.getLatLng();
-      if (position) {
-        emit('location-selected', { lat: position.lat, lng: position.lng });
-      }
-    });
-  }
+  marker.value = L.marker([props.initialLocation.lat, props.initialLocation.lng], {
+    draggable: true
+  }).addTo(mapInstance);
+  
+  // Add click handler to map
+  mapInstance.on('click', (e: L.LeafletMouseEvent) => {
+    const { lat, lng } = e.latlng;
+    marker.value?.setLatLng([lat, lng]);
+    emit('location-selected', { lat, lng });
+  });
+  
+  // Add drag end handler to marker
+  marker.value.on('dragend', () => {
+    const position = marker.value?.getLatLng();
+    if (position) {
+      emit('location-selected', { lat: position.lat, lng: position.lng });
+    }
+  });
 };
 
 const getCurrentLocation = () => {
@@ -100,25 +97,27 @@ const getCurrentLocation = () => {
         currentLocationMarker.value.remove();
       }
 
-      // Create a new marker for current location
-      const currentLocationIcon = L.divIcon({
-        html: '<div class="current-location-marker"></div>',
-        className: '',
-        iconSize: [16, 16],
-        iconAnchor: [8, 8]
-      });
+      if (map.value) {
+        // Create a new marker for current location
+        const currentLocationIcon = L.divIcon({
+          html: '<div class="current-location-marker"></div>',
+          className: '',
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
+        });
 
-      currentLocationMarker.value = L.marker([latitude, longitude], {
-        icon: currentLocationIcon,
-        zIndexOffset: 1000 // Ensure it's above other markers
-      }).addTo(map.value!);
+        currentLocationMarker.value = L.marker([latitude, longitude], {
+          icon: currentLocationIcon,
+          zIndexOffset: 1000 // Ensure it's above other markers
+        }).addTo(map.value);
 
-      // Center map on current location
-      map.value?.setView([latitude, longitude], 15);
+        // Center map on current location
+        map.value.setView([latitude, longitude], 15);
 
-      // Update the main marker and emit the new location
-      marker.value?.setLatLng([latitude, longitude]);
-      emit('location-selected', { lat: latitude, lng: longitude });
+        // Update the main marker and emit the new location
+        marker.value?.setLatLng([latitude, longitude]);
+        emit('location-selected', { lat: latitude, lng: longitude });
+      }
 
       isLocating.value = false;
     },
