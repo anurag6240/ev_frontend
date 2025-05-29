@@ -65,15 +65,8 @@ const handleClose = () => {
 
       <!-- Status Badge -->
       <div class="mb-4">
-        <span 
-          :class="{
-            'px-3 py-1 rounded-full text-xs font-medium': true,
-            'bg-green-100 text-green-800': station.status === 'active',
-            'bg-amber-100 text-amber-800': station.status === 'maintenance',
-            'bg-gray-100 text-gray-800': station.status === 'inactive'
-          }"
-        >
-          {{ station.status.charAt(0).toUpperCase() + station.status.slice(1) }}
+        <span :class="['px-3 py-1 rounded-full text-xs font-medium', statusColor]">
+          {{ statusText }}
         </span>
       </div>
 
