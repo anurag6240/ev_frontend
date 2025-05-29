@@ -6,7 +6,7 @@ const props = defineProps<{
   station: ChargingStation;
 }>();
 
-const emit = defineEmits<{
+defineEmits<{
   (e: 'edit', id: string): void;
   (e: 'close'): void;
 }>();
