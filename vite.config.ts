@@ -10,15 +10,11 @@ export default defineConfig({
     }
   },
   build: {
+    assetsInlineLimit: 0,
     rollupOptions: {
       output: {
-        assetFileNames: (assetInfo) => {
-          const name = assetInfo.name || '';
-          return name.includes('.png') 
-            ? 'assets/[name][extname]'
-            : 'assets/[name]-[hash][extname]';
-        }
+        assetFileNames: 'assets/[name][extname]'
       }
     }
   }
-}) 
+})
