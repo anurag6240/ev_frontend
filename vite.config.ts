@@ -13,11 +13,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
-          const info = assetInfo.name as string;
-          if (info && info.endsWith('.png')) {
-            return 'assets/[name][extname]'
-          }
-          return 'assets/[name]-[hash][extname]'
+          const name = assetInfo.name || '';
+          return name.includes('.png') 
+            ? 'assets/[name][extname]'
+            : 'assets/[name]-[hash][extname]';
         }
       }
     }
