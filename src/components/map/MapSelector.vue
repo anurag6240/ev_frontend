@@ -148,7 +148,7 @@ const getCurrentLocation = () => {
     <!-- Current Location Button -->
     <button
       @click="getCurrentLocation"
-      class="absolute bottom-4 right-4 z-[1000] bg-white p-2 rounded-full shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+      class="absolute bottom-4 right-4 z-[1000] bg-white p-2 rounded-full shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-transform hover:scale-105"
       :disabled="isLocating"
       title="Use current location"
     >
