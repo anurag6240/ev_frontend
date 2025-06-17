@@ -25,32 +25,32 @@ This is the **Vue 3** frontend for the **EV Charging Station Management System**
 ## 📁 Project Structure
 
 frontend/
-├── public/ # Static assets (e.g., favicon, charger.png)
+├── public/                  # Static assets (e.g., favicon, charger.png)
 ├── src/
-│ ├── assets/ # Global styles (e.g., index.css)
-│ ├── components/ # Reusable Vue components
-│ │ ├── dashboard/
-│ │ ├── layout/
-│ │ ├── map/
-│ │ └── stations/
-│ ├── router/ # Vue Router configuration (index.ts)
-│ ├── services/ # API service integration (api.ts)
-│ ├── stores/ # Pinia stores for state management
-│ │ ├── auth.ts
-│ │ └── stations.ts
-│ ├── views/ # Page-level components
-│ │ ├── auth/
-│ │ ├── stations/
-│ │ └── ...
-│ ├── App.vue # Root Vue component
-│ ├── main.ts # App entry point
-│ └── vite-env.d.ts # Vite env types
-├── package.json # Project dependencies and scripts
-├── postcss.config.js # Tailwind/PostCSS config
-├── tailwind.config.js # Tailwind config
-├── tsconfig.json # TypeScript config
-├── vite.config.ts # Vite build config
-└── README.md # This file
+│   ├── assets/              # Global styles (e.g., index.css)
+│   ├── components/          # Reusable Vue components
+│   │   ├── dashboard/
+│   │   ├── layout/
+│   │   ├── map/
+│   │   └── stations/
+│   ├── router/              # Vue Router configuration (index.ts)
+│   ├── services/            # API service integration (api.ts)
+│   ├── stores/              # Pinia stores for state management
+│   │   ├── auth.ts
+│   │   └── stations.ts
+│   ├── views/               # Page-level components
+│   │   ├── auth/
+│   │   ├── stations/
+│   │   └── ...
+│   ├── App.vue              # Root Vue component
+│   ├── main.ts              # App entry point
+│   └── vite-env.d.ts        # Vite env types
+├── package.json             # Project dependencies and scripts
+├── postcss.config.js        # Tailwind/PostCSS config
+├── tailwind.config.js       # Tailwind config
+├── tsconfig.json            # TypeScript config
+├── vite.config.ts           # Vite build config
+└── README.md                # This file
 
 
 ---
